@@ -1,10 +1,11 @@
 const input = document.querySelectorAll('#input');
-const paragraphText = document.querySelectorAll('#paragragh-text');
+const paragraphText = document.getElementById('paragragh-text');
 const time = document.querySelectorAll('#time');
 const mistakes = document.querySelectorAll('#mistakes');
 const wpm = document.querySelectorAll('#wpm');
 const cpm = document.querySelectorAll('#cpm');
 const tryAgainButton = document.querySelectorAll('#try-again-btn');
+
 
 const loadParagraph = () => {
     const paragraph = [
@@ -21,12 +22,18 @@ const loadParagraph = () => {
     ]
       
     const randomIndex = Math.floor(Math.random() * paragraph.length);
-    paragraphText.innerHTML = '';
-    for(const char of paragraph[randomIndex]) {
-        console.log(char);
-        paragraphText.innerHTML += `<span>${char}</span>`;
-    }
+    console.log(randomIndex);
+    console.log(paragraph[randomIndex]);
+    paragraphText.innerHTML = paragraph[randomIndex];
+    console.log(paragraphText.innerHTML);
+    // paragraphText.innerHTML = '';
+    // for(const char of paragraph[randomIndex]) {
+    //     console.log(char);
+    //     paragraphText.innerHTML += `<span>${char}</span>`;
+    // }
+    // console.log(paragraphText.innerHTML);
 }
 
-loadParagraph();
 
+
+loadParagraph();
