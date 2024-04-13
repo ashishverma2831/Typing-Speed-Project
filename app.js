@@ -1,3 +1,4 @@
+
 const input = document.querySelectorAll('#input');
 const paragraphText = document.getElementById('paragragh-text');
 const time = document.querySelectorAll('#time');
