@@ -1,11 +1,20 @@
 
-const input = document.querySelectorAll('#input');
-const paragraphText = document.getElementById('paragragh-text');
-const time = document.querySelectorAll('#time');
-const mistakes = document.querySelectorAll('#mistakes');
-const wpm = document.querySelectorAll('#wpm');
-const cpm = document.querySelectorAll('#cpm');
-const tryAgainButton = document.querySelectorAll('#try-again-btn');
+// const input = document.querySelectorAll('#input');
+const paragraphText = document.getElementById('paragraph-text');
+const time = document.getElementById('time');
+const mistakes = document.getElementById('mistakes');
+const wpm = document.getElementById('wpm');
+const cpm = document.getElementById('cpm');
+const tryAgainButton = document.getElementById('try-again-btn');
+
+
+// Variables
+let timer;
+let maxTime = 60;
+let timeLeft = maxTime;
+let charIndex = 0;
+let mistakesCount = 0;
+let isTyping = false;
 
 
 const loadParagraph = () => {
@@ -23,18 +32,75 @@ const loadParagraph = () => {
     ]
       
     const randomIndex = Math.floor(Math.random() * paragraph.length);
-    console.log(randomIndex);
-    console.log(paragraph[randomIndex]);
-    paragraphText.innerHTML = paragraph[randomIndex];
-    console.log(paragraphText.innerHTML);
-    // paragraphText.innerHTML = '';
-    // for(const char of paragraph[randomIndex]) {
-    //     console.log(char);
-    //     paragraphText.innerHTML += `<span>${char}</span>`;
-    // }
-    // console.log(paragraphText.innerHTML);
+    // paragraphText.textContent = paragraph[randomIndex];
+
+    paragraphText.innerHTML = '';
+    for(const char of paragraph[randomIndex]) {
+        console.log(char);
+        paragraphText.innerHTML += `<span>${char}</span>`;
+    }
+    paragraphText.querySelectorAll('span')[0].classList.add('active');
+    document.addEventListener('keydown',()=>input.focus());
+    paragraphText.addEventListener('click',()=>input.focus());
+}
+
+
+//  Handle User Input
+function initTyping(){
+    const char = paragraphText.querySelectorAll('span');
+    const typedChar = input.value.charAt(charIndex);
+
+    if(charIndex < char.length && timeLeft > 0) {
+
+        if(!isTyping) {
+            timer = setInterval(countdown, 1000);
+            isTyping = true;
+        }
+
+        if(char[charIndex].innerText === typedChar) {
+            char[charIndex].classList.add('correct');
+            console.log('correct');
+        }else{
+            char[charIndex].classList.add('incorrect');
+            mistakesCount++;
+            console.log('Incorrect');
+        }
+        charIndex++;
+        char[charIndex].classList.add('active');
+        mistakes.innerText = mistakesCount;
+        cpm.innerText = charIndex-mistakesCount;
+    }else{
+        clearInterval(timer);
+        input.value = '';
+    }
 }
 
 
 
+function countdown(){
+    if(timeLeft > 0){
+        timeLeft--;
+        time.innerText = timeLeft;
+        let wpmValue = Math.round((charIndex-mistakesCount)/5 / (maxTime - timeLeft) * 60);
+        wpm.innerText = wpmValue;
+    }else{
+        clearInterval(timer);
+    }
+}
+
+tryAgainButton.addEventListener('click',()=>{
+    clearInterval(timer);
+    timeLeft = maxTime;
+    charIndex = 0;
+    mistakesCount = 0;
+    isTyping = false;
+    time.innerText = timeLeft;
+    mistakes.innerText = mistakesCount;
+    wpm.innerText = 0;
+    cpm.innerText = 0;
+    loadParagraph();
+    input.value = '';
+    input.focus();
+})
+input.addEventListener("input", initTyping);
 loadParagraph();
