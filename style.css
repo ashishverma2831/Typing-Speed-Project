@@ -46,6 +46,7 @@ body{
 }
 .box .text span.correct{
     color: green;
+    background: #aef1ae;
 }
 .box .text span.incorrect{
     color: red;
