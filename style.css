@@ -27,6 +27,7 @@ body {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
+    color: rgb(209 213 219);
 }
 
 .container {
@@ -102,7 +103,7 @@ body {
     border-radius: 5px;
     /* background-color: lightseagreen; */
     background-color: #e2b714;
-    color: white;
+    color: rgb(209 213 219);
     cursor: pointer;
     outline: none;
     font-size: 18px;
