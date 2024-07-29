@@ -17,6 +17,7 @@ body {
     background: #323437;
     width: 100%;
     height: 100vh;
+    padding: 0 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,12 +135,13 @@ body {
         padding: 0;
     }
 
-    body {
-        height: auto;
-        padding: 10px;
-    }
-
     .box {
         border: none;
+    }
+}
+@media  screen and (width<=1024px) {
+    body {
+        height: auto;
+        padding: 40px 10px;
     }
 }
